@@ -97,4 +97,18 @@ if (isset($_GET['delete_skill'])) {
     header("Location: admin.php?success=skill_deleted");
     exit();
 }
+    if (isset($_GET['mark_read'])) {
+    $id = intval($_GET['mark_read']);
+    $stmt = $conn->prepare("UPDATE messages SET Status = 'Read' WHERE ID = ?");
+    $stmt->execute([$id]);
+    header("Location: admin.php?success=Message marked as read");
+    exit();
+}
+if (isset($_GET['delete_message'])) {
+    $id = intval($_GET['delete_message']);
+    $stmt = $conn->prepare("DELETE FROM messages WHERE ID = ?");
+    $stmt->execute([$id]);
+    header("Location: admin.php?success=Message deleted successfully");
+    exit();
+}
 ?>
